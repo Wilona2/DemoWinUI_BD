@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Demo.Views.FormulaireClientPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Demo.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel
+        MaxWidth="520"
+        Padding="24"
+        HorizontalAlignment="Left"
+        Spacing="16">
+
+        <TextBlock
+            FontSize="28"
+            FontWeight="SemiBold"
+            Text="{x:Bind ViewModel.Titre, Mode=OneWay}" />
+
+        <StackPanel>
+            <TextBox
+                Header="Prénom"
+                PlaceholderText="Ex. : Jean"
+                Text="{x:Bind ViewModel.ClientEdit.Prenom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ItemsView Foreground="Coral" ItemsSource="{x:Bind ViewModel.ClientEdit.GetErrors('Prenom'), Mode=OneWay}">
+                <ItemsView.Resources>
+                    <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent" />
+                </ItemsView.Resources>
+            </ItemsView>
+        </StackPanel>
+
+        <StackPanel>
+            <TextBox
+                Header="Nom"
+                PlaceholderText="Ex. : Dupont"
+                Text="{x:Bind ViewModel.ClientEdit.Nom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ItemsView Foreground="Coral" ItemsSource="{x:Bind ViewModel.ClientEdit.GetErrors('Nom'), Mode=OneWay}">
+                <ItemsView.Resources>
+                    <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent" />
+                </ItemsView.Resources>
+            </ItemsView>
+        </StackPanel>
+
+        <ComboBox
+            HorizontalAlignment="Stretch"
+            Header="Gâteau préféré"
+            ItemsSource="{x:Bind ViewModel.GateauOptions}"
+            SelectedItem="{x:Bind ViewModel.ClientEdit.GateauPreferee, Mode=TwoWay}" />
+
+        <CheckBox Content="Client régulier" IsChecked="{x:Bind ViewModel.ClientEdit.EstClientRegulier, Mode=TwoWay}" />
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button Click="btn_EnregistrerClick" Content="Enregistrer" />
+            <Button Click="btn_AnnulerClick" Content="Annuler" />
+        </StackPanel>
+    </StackPanel>
+</Page>
